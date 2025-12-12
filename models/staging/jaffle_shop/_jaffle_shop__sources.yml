@@ -1,0 +1,77 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: "Data to do with our toasted sandwich shop"
+    database: raw
+    config:
+      freshness:
+        warn_after:
+          count: 5
+          period: hour
+        error_after:
+          count: 24
+          period: hour
+
+
+    tables:
+      - name: customers
+        description: "All our toastie customers"
+        columns:
+          - name: id
+            data_type: number
+            description: "Primary key of customer table, unique for each customer"
+            data_tests:
+              - unique
+              - not_null
+          
+          - name: first_name
+            data_type: varchar
+            description: "The first name of our customer"
+
+          - name: last_name
+            data_type: varchar
+            description: "The surname of our customer"
+            data_tests:
+              - not_null
+    
+      - name: orders
+        description: "Every order made in our toasted sandwich shop"
+        columns:
+          - name: id
+            data_type: number
+            description: "Primary key, aka order_id"
+            data_tests:
+              - not_null
+              - unique
+
+          - name: user_id
+            data_type: number
+            description: "Foreign key coming from customers table"
+            data_tests:
+              - relationships:
+                  arguments:
+                    field: id
+                    to: source('jaffle_shop', 'customers')
+
+          - name: order_date
+            data_type: date
+            description: "When the order occurred"
+            data_tests:
+              - not_null
+
+          - name: status
+            data_type: varchar
+            description: "The status of the order"
+            data_tests:
+              - accepted_values:
+                  values:
+                    - completed
+                    - return_pending
+                    - placed
+                    - shipped
+                    - returned    
+
+          - name: _etl_loaded_at
+            data_type: timestamp_ntz
+            description: "system generated timestamp of update"
