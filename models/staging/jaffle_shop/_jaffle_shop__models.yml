@@ -1,0 +1,44 @@
+
+
+version: 2
+
+models:
+  - name: stg_jaffle_shop__customers
+    description: "Staging layer of customer data"
+    columns:
+      - name: customer_id
+        data_type: number
+        description: "Unique indetifier of each customer"
+
+      - name: first_name
+        data_type: varchar
+        description: "The first name of our customer"
+
+      - name: last_name
+        data_type: varchar
+        description: "The surname of our customer"
+
+      - name: full_name
+        data_type: varchar
+        description: "The combined first and last names of our customer"
+        data_tests:
+          - not_null
+
+  - name: stg_jaffle_shop__orders
+    description: "Staging layer of order data"
+    columns:
+      - name: order_id
+        data_type: number
+        description: "Unique identifier of each order"
+
+      - name: user_id
+        data_type: number
+        description: "Foreign key coming from customers table"
+
+      - name: order_date
+        data_type: date
+        description: "When the order occurred"
+
+      - name: status
+        data_type: varchar
+        description: "The status of the order"
