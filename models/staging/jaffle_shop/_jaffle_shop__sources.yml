@@ -40,7 +40,7 @@ sources:
         columns:
           - name: id
             data_type: number
-            description: "Primary key, aka order_id"
+            description: "{{doc('order_id')}}"
             data_tests:
               - not_null
               - unique
@@ -62,15 +62,16 @@ sources:
 
           - name: status
             data_type: varchar
-            description: "The status of the order"
+            description: "{{doc('order_status')}}"
             data_tests:
               - accepted_values:
-                  values:
-                    - completed
-                    - return_pending
-                    - placed
-                    - shipped
-                    - returned    
+                  arguments:
+                    values:
+                      - completed
+                      - return_pending
+                      - placed
+                      - shipped
+                      - returned    
 
           - name: _etl_loaded_at
             data_type: timestamp_ntz
