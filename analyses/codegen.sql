@@ -1,4 +1,4 @@
-{{ codegen.generate_source(schema_name= 'jaffle_shop'
-, database_name= 'raw'
-, generate_columns = true
-, include_descriptions = true) }}
+{% set models_to_generate = codegen.get_models(directory='staging/stripe') %}
+{{ codegen.generate_model_yaml(
+    model_names = models_to_generate
+) }}

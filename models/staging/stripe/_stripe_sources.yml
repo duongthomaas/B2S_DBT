@@ -1,0 +1,59 @@
+version: 2
+
+sources:
+  - name: stripe
+    description: ""
+    database: raw
+    config:
+      freshness:
+        warn_after:
+          count: 5
+          period: hour
+        error_after:
+          count: 24
+          period: hour
+
+    tables:
+      - name: payment
+        description: ""
+        columns:
+          - name: id
+            data_type: number
+            description: "Unique indetifier"
+            tests:
+              - unique
+              - not_null
+
+          - name: orderid
+            data_type: number
+            description: "Unique identifier of order"
+            tests:
+              - not_null
+
+          - name: paymentmethod
+            data_type: varchar
+            description: "Payment method"
+            tests:
+              - not_null
+
+          - name: status
+            data_type: varchar
+            description: "Status of transaction"
+            tests:
+              - not_null
+
+          - name: amount
+            data_type: number
+            description: "Amount paid"
+            tests:
+              - not_null
+
+          - name: created
+            data_type: date
+            description: "Date payment made"
+            tests:
+              - not_null
+              
+          - name: _batched_at
+            data_type: timestamp_ntz
+            description: "System generated timestamp"
