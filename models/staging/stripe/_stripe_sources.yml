@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: stripe
-    description: ""
+    description: "Data to do with payments our toasted sandwich shop"
     database: raw
     config:
       freshness:
@@ -20,38 +20,54 @@ sources:
           - name: id
             data_type: number
             description: "Unique indetifier"
-            tests:
+            data_tests:
               - unique
               - not_null
 
           - name: orderid
             data_type: number
             description: "Unique identifier of order"
-            tests:
+            data_tests:
               - not_null
+              - relationships:
+                  arguments:
+                    field: id
+                    to: source('jaffle_shop', 'orders')
 
           - name: paymentmethod
             data_type: varchar
             description: "Payment method"
-            tests:
+            data_tests:
               - not_null
+              - accepted_values:
+                  arguments:
+                    values:
+                     - credit_card
+                     - bank_transfer
+                     - gift_card
+                     - coupon
 
           - name: status
             data_type: varchar
             description: "Status of transaction"
-            tests:
+            data_tests:
               - not_null
+              - accepted_values:
+                  arguments:
+                    values:
+                      - success
+                      - fail
 
           - name: amount
             data_type: number
             description: "Amount paid"
-            tests:
+            data_tests:
               - not_null
 
           - name: created
             data_type: date
             description: "Date payment made"
-            tests:
+            data_tests:
               - not_null
               
           - name: _batched_at

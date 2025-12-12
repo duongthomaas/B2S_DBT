@@ -3,32 +3,32 @@ version: 2
 
 models:
   - name: stg_stripe__payment
-    description: ""
+    description: "Staging layer of payment data"
     columns:
       - name: id
         data_type: number
-        description: ""
+        description: "Unique identifier"
 
       - name: orderid
         data_type: number
-        description: ""
+        description: "Unique identifier of order id"
 
       - name: paymentmethod
         data_type: varchar
-        description: ""
+        description: "Payment method"
 
       - name: status
         data_type: varchar
-        description: ""
+        description: "Status of payment"
 
       - name: amount
         data_type: number
-        description: ""
+        description: "Amount paid"
 
       - name: created
         data_type: date
-        description: ""
+        description: "Date of payment"
 
       - name: _batched_at
         data_type: timestamp_ntz
-        description: ""
+        description: "Timestamp"
