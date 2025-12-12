@@ -24,6 +24,9 @@ models:
       - name: amount
         data_type: number
         description: "Amount paid"
+        data_tests:
+          - not_null
+          - no_negative_values
 
       - name: created
         data_type: date

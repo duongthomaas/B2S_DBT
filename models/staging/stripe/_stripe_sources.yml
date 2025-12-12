@@ -15,7 +15,7 @@ sources:
 
     tables:
       - name: payment
-        description: ""
+        description: "Payments"
         columns:
           - name: id
             data_type: number
